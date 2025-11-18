@@ -30,9 +30,9 @@ def buy(fruits_to_buy: list[str], prices: dict[str, int], total_amount: int) -> 
         elif fruits and amount > 0:
             fruit = fruits[0]
             price = prices[fruit]
-            for k in ____:
+            for k in range(1, amount // price + 1):
                 # Hint: The display function will help you add fruit to the cart.
-                add(____, ____, ____)
+                add(fruits[1:], amount - price*k, cart+display(fruit,k))
     add(fruits_to_buy, total_amount, '')
 
 
@@ -88,6 +88,13 @@ def closer_city(lat, lon, city_a, city_b):
     'Bucharest'
     """
     "*** YOUR CODE HERE ***"
+    new_city = make_city('Temp',lat,lon)
+    distance_A = distance(new_city,city_a)
+    distance_B = distance(new_city,city_b)
+    if distance_A<distance_B:
+        return get_name(city_a)
+    else:
+        return get_name(city_b)
 
 def check_city_abstraction():
     """
