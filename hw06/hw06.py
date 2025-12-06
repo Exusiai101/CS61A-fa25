@@ -137,7 +137,11 @@ def store_digits(n: int):
     >>> print("Do not use str or reversed!") if any([r in cleaned for r in ["str", "reversed"]]) else None
     """
     "*** YOUR CODE HERE ***"
-
+    result = Link.empty
+    while n > 0:
+        result = Link(n%10, result)
+        n //= 10
+    return result
 
 def deep_map_mut(func, s: Link) -> None:
     """Mutates a deep link s by replacing each item found with the
@@ -167,6 +171,13 @@ def deep_map_mut(func, s: Link) -> None:
     (2 ((4 6)) 8)
     """
     "*** YOUR CODE HERE ***"
+    if s is Link.empty:
+        return None
+    elif isinstance(s.first, Link):
+        deep_map_mut(func, s.first)
+    else:
+        s.first = func(s.first)
+    deep_map_mut(func, s.rest)
 
 
 def prune_small(t, n):
@@ -186,11 +197,11 @@ def prune_small(t, n):
     >>> t3
     Tree(6, [Tree(1), Tree(3, [Tree(1), Tree(2)])])
     """
-    while ____:
-        largest = max(____, key=____)
-        ____
+    while len(t.branches) > n:
+        largest = max(t.branches, key=lambda x : x)
+        t.branches.remove(largest)
     for b in t.branches:
-        ____
+        prune_small(b, n)
 
 
 def delete(t, x):
