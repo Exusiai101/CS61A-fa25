@@ -170,5 +170,12 @@ def duplicate_link(s: Link, val: int) -> None:
     Link(1, Link(2, Link(2, Link(2, Link(2, Link(3))))))
     """
     "*** YOUR CODE HERE ***"
-
+    if s is Link.empty:
+        return
+    if s.first == val:
+        remaining = s.rest
+        s.rest = Link(val, remaining)
+        duplicate_link(remaining, val)
+    else:
+        duplicate_link(s.rest, val)
 
